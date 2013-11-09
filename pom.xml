@@ -50,6 +50,12 @@
     </dependency>
   </dependencies>
 
+  <scm>
+    <url>https://github.com/rmannibucau/jaxrs-mvc.git</url>
+    <connection>scm:git:https://github.com/rmannibucau/jaxrs-mvc.git</connection>
+    <developerConnection>scm:git:https://github.com/rmannibucau/jaxrs-mvc.git</developerConnection>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
