@@ -10,7 +10,6 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,8 +19,9 @@ import java.lang.reflect.Type;
 
 @Provider
 @Produces({ MediaType.TEXT_HTML, MediaType.TEXT_PLAIN })
-public class VelocityMessageBodyWriter implements MessageBodyWriter<ModelView> {
+public class VelocityMessageBodyWriter extends BaseMessageBodyWriter {
     private static final String UTF_8 = "UTF-8";
+
     private final VelocityEngine velocity;
 
     public VelocityMessageBodyWriter() {
@@ -37,12 +37,6 @@ public class VelocityMessageBodyWriter implements MessageBodyWriter<ModelView> {
     }
 
     @Override
-    public boolean isWriteable(final Class<?> rawType, final Type genericType,
-                               final Annotation[] annotations, final MediaType mediaType) {
-        return ModelView.class.equals(rawType);
-    }
-
-    @Override
     public void writeTo(final ModelView modelView, final Class<?> rawType, final Type genericType,
                         final Annotation[] annotations, final MediaType mediaType,
                         final MultivaluedMap<String, Object> httpHeaders,
@@ -50,12 +44,5 @@ public class VelocityMessageBodyWriter implements MessageBodyWriter<ModelView> {
         final OutputStreamWriter writer = new OutputStreamWriter(entityStream);
         velocity.getTemplate(modelView.template()).merge(new VelocityContext(modelView.attributes()), writer);
         writer.flush();
-    }
-
-    @Override
-    public long getSize(final ModelView t, final Class<?> rawType,
-                        final Type genericType, final Annotation[] annotations,
-                        final MediaType mediaType) {
-        return -1;
     }
 }

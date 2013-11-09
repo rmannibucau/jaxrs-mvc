@@ -1,4 +1,4 @@
-package com.github.rmannibucau.jaxrs.mvc;
+package com.github.rmannibucau.jaxrs.mvc.velocity;
 
 import com.github.rmannibucau.jaxrs.mvc.api.ModelView;
 import com.github.rmannibucau.jaxrs.mvc.provider.VelocityMessageBodyWriter;
@@ -46,7 +46,7 @@ public class VelocityTest {
     public static class VelocityResource {
         @GET
         public ModelView get() {
-            return new ModelView("get.vm").set("name", "GET");
+            return new ModelView("velocity/get.vm").set("name", "GET");
         }
     }
 }
